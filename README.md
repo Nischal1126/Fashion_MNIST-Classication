@@ -1,6 +1,6 @@
 # Fashion MNIST Classification
 
-A CNN-based image classification model trained on the Fashion-MNIST dataset using PyTorch.
+A CNN-based(leNet) image classification model trained on the Fashion-MNIST dataset using PyTorch.
 
 ## Dataset
 
@@ -94,7 +94,7 @@ Performance can be improved with:
 - Learning rate: 0.001
 - Optimizer: SGD with momentum (0.9)
 - Loss function: CrossEntropyLoss
-- Epochs: 5-10
+- Epochs: 10-20
 
 ## Requirements
 
