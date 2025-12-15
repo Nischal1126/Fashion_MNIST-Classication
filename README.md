@@ -16,7 +16,6 @@ Dataset is automatically downloaded from torchvision.
 
 Simple CNN with:
 - 2 Convolutional layers (Conv2d + ReLU + MaxPool2d)
-- Dropout for regularization (25% after conv, 50% after fc)
 - 3 Fully connected layers
 - Input: 32×32 grayscale images
 - Output: 10 classes
@@ -70,8 +69,8 @@ python data_prep.py
 
 Place your image in `test_image/` and run the inference cell in `model.ipynb`:
 ```python
-net = Net()
-net.load_state_dict(torch.load("model_weights.pth"))
+net = torch.load("model.pth", map_location=device)
+net.to(device)
 net.eval()
 # Prediction code...
 ```
@@ -81,11 +80,6 @@ net.eval()
 - **Training Accuracy:** ~87%
 - **Test Accuracy:** ~86%
 
-Performance can be improved with:
-- Larger batch sizes (32-64)
-- More epochs (10-20)
-- Data augmentation
-- Deeper architectures
 
 ## Configuration
 
@@ -95,20 +89,4 @@ Performance can be improved with:
 - Optimizer: SGD with momentum (0.9)
 - Loss function: CrossEntropyLoss
 - Epochs: 10-20
-
-## Requirements
-
-- Python 3.9+
-- PyTorch 2.0+
-- torchvision
-- matplotlib
-- Pillow
-- NumPy
-- scikit-learn
-- seaborn
-
-
-## Author
-
-Nischal
 
