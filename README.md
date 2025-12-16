@@ -1,6 +1,6 @@
 # Fashion MNIST Classification
 
-A CNN-based(leNet) image classification model trained on the Fashion-MNIST dataset using PyTorch.
+A CNN-based (LeNet) image classification model trained on the Fashion-MNIST dataset using PyTorch, with a Flutter web app and FastAPI backend for deployment.
 
 ## Dataset
 
@@ -23,12 +23,20 @@ Simple CNN with:
 ## Project Structure
 
 ```
-AlexNet/
+Fashion_MNIST-Classication/
 ├── data_prep.py          # Data loading and preprocessing
 ├── model.ipynb           # Training and evaluation notebook
-├── model_weights.pth     # Saved model weights
+├── model.pth             # Saved model
+├── requirements.txt      # Python dependencies
 ├── FashionMNIST/         # Downloaded dataset (auto-generated)
-└── test_image/           # Custom test images
+├── test_image/           # Custom test images
+└── deploy/
+    ├── Backend/
+    │   ├── main.py           # FastAPI backend server
+    │   └── requirements.txt  # Backend dependencies
+    └── mywebsite/
+        └── lib/
+            └── main.dart     # Flutter web app
 ```
 
 ## Setup
@@ -75,11 +83,48 @@ net.eval()
 # Prediction code...
 ```
 
+## Web App Deployment
+
+### 1. Start the Backend
+
+```bash
+cd deploy/Backend
+conda activate dl_env
+pip install -r requirements.txt
+python main.py
+```
+
+The API will run at `http://localhost:8000`
+
+**API Endpoints:**
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/` | GET | Health check |
+| `/predict` | POST | Upload image for classification |
+| `/classes` | GET | Get all class labels |
+| `/docs` | GET | Swagger API documentation |
+
+### 2. Run the Flutter Web App
+
+```bash
+cd deploy/mywebsite
+flutter pub get
+flutter run -d chrome
+```
+
+### 3. Build for Production
+
+```bash
+cd deploy/mywebsite
+flutter build web
+```
+
+The build output will be in `deploy/mywebsite/build/web/`
+
 ## Results
 
 - **Training Accuracy:** ~87%
 - **Test Accuracy:** ~86%
-
 
 ## Configuration
 
@@ -89,4 +134,11 @@ net.eval()
 - Optimizer: SGD with momentum (0.9)
 - Loss function: CrossEntropyLoss
 - Epochs: 10-20
+
+## Tech Stack
+
+- **Model:** PyTorch (LeNet CNN)
+- **Backend:** FastAPI + Uvicorn
+- **Frontend:** Flutter Web
+- **Dataset:** Fashion-MNIST (torchvision)
 
